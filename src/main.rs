@@ -1,33 +1,51 @@
-use rand::Rng;
-use std::cmp::Ordering;
-use std::io;
+
 fn main() {
-    println!("guess number");
+    let x: (i32,f64,u8,char) = (500,6.3,3,'s');
+    println!("{:?}",x);
+    let five_hundo=x.0;
+    let s_char=x.3;
+    println!("{five_hundo} {s_char}");
 
-    let secret_number = rand::thread_rng().gen_range(1..=100);
+    const A: [i32; 5] = [1,2,3,4,5];
+    println!("{:#?}", A);
 
-    //println!("The secret number is: {secret_number} ");
+    let t = {
+        let x = 3;
+        x+1
+    };
+    println!("value of T {t}");
+    let mut count = 0;
+    let result = loop {
+        count += 1;
+        if count == 10{
+            break count*5;
+        }
+        println!("Count now {count}");
+    };
+    println!("Count Res {result}");
 
-    
-    loop {
-        let mut guess = String::new();
-        println!("Please give input ");
-        io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
+    let mut counta = 0;
+    'counting_up: loop {
+        println!("counta = {counta}");
+        let mut remaining = 10;
 
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-        println!("You guessed: {guess}");
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too Small"),
-            Ordering::Greater => println!("Too big"),
-            Ordering::Equal => {
-                println!("You win!");
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
                 break;
             }
+            if counta == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
         }
+
+        counta += 1;
+
+        
+    }
+    println!("End count = {counta}");
+    for number in (1..4).rev() {
+        println!("{number}!");
     }
 }
