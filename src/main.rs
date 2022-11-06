@@ -1,22 +1,22 @@
 use std::io;
 fn main() {
-    let mut range_fibo = String::new();
-    println!("Please give number of digits expected ");
+    let mut temp = String::new();
+    println!("Please give the current temperature in Celsius ");
     io::stdin()
-    .read_line(&mut range_fibo)
-    .expect("Failed to read line");
-    let range_fibo: u32 = range_fibo.trim().parse().expect("PANIKK!");
-    println!("{}", fibo_gen(range_fibo));
-}
+        .read_line(&mut temp)
+        .expect("Failed to read line");
+    let temp: f32 = temp.trim().parse().expect("PANIKK!");
+    
+    println!("Please give the unit of output C,K,F ");
 
-fn fibo_gen(x:u32)->u32 {
-    match x {
-        0 => return 1,
-        1 => return 1,
-        _ => {
-            let s = fibo_gen(x-1)+ fibo_gen(x-2);
-            print!("{s}..");
-            return s;
-        }
+    let mut scale_name = String::new();
+    io::stdin()
+        .read_line(&mut scale_name)
+        .expect("Failed to read line");
+    let scale_name: char = scale_name.trim().parse().expect("PANIKK!");
+    match scale_name {
+        'C' => println!("{} deg C", ((temp - 32.0) / 9.0) * 5.0),
+        'F' => println!("{} deg F", ((temp * 9.0) / 5.0) + 32.0),
+        _ => println!("No any know")
     }
 }
