@@ -1,22 +1,23 @@
 use std::io;
 fn main() {
-    let mut temp = String::new();
-    println!("Please give the current temperature in Celsius ");
+    let mut enter_string = String::new();
+    println!("Please give input ");
     io::stdin()
-        .read_line(&mut temp)
-        .expect("Failed to read line");
-    let temp: f32 = temp.trim().parse().expect("PANIKK!");
-    
-    println!("Please give the unit of output C,K,F ");
+    .read_line(&mut enter_string)
+    .expect("Failed to read line");
 
-    let mut scale_name = String::new();
-    io::stdin()
-        .read_line(&mut scale_name)
-        .expect("Failed to read line");
-    let scale_name: char = scale_name.trim().parse().expect("PANIKK!");
-    match scale_name {
-        'C' => println!("{} deg C", ((temp - 32.0) / 9.0) * 5.0),
-        'F' => println!("{} deg F", ((temp * 9.0) / 5.0) + 32.0),
-        _ => println!("No any know")
+    println!("You entered: {enter_string}");
+    println!("First word: {}",first_word(&enter_string));
+}
+// return the index of the first word ending
+fn first_word(s: &String) -> &str{
+    let bytes = s.as_bytes();
+
+    for(i, &item) in bytes.iter().enumerate(){
+        if item==b' '{
+            return &s[0..i];
+        }
     }
+
+    &s[..]
 }
