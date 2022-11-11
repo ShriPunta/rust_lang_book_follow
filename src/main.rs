@@ -1,23 +1,32 @@
-use std::io;
 fn main() {
-    let mut enter_string = String::new();
-    println!("Please give input ");
-    io::stdin()
-    .read_line(&mut enter_string)
-    .expect("Failed to read line");
-
-    println!("You entered: {enter_string}");
-    println!("First word: {}",first_word(&enter_string));
+    let r1: Rectangle = Rectangle {
+        width: 22,
+        height: 25,
+    };
+    dbg!(r1.area()); // as u1.uname has String (which does not implement Copy trait, u1 will become UNUSABLE. Other scalar types implement copy trait)
+    dbg!(Rectangle::square(20)); 
 }
 // return the index of the first word ending
-fn first_word(s: &String) -> &str{
-    let bytes = s.as_bytes();
 
-    for(i, &item) in bytes.iter().enumerate(){
-        if item==b' '{
-            return &s[0..i];
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+//houses methods for Rectangle
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+// contains associated functions as they do not have the first param as &self
+impl Rectangle {
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
         }
     }
-
-    &s[..]
 }
+
