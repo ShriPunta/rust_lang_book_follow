@@ -1,32 +1,31 @@
+#[derive(Debug)] // so we can inspect the state in a minute
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    let mut count = 0;
+    if let Coin::Quarter(state) = coin {
+        println!("State quarter from {:?}!", state);
+        25
+    } else {
+        count += 1;
+        count
+    }
+}
+
+// Standard library enum: Option
 fn main() {
-    let r1: Rectangle = Rectangle {
-        width: 22,
-        height: 25,
-    };
-    dbg!(r1.area()); // as u1.uname has String (which does not implement Copy trait, u1 will become UNUSABLE. Other scalar types implement copy trait)
-    dbg!(Rectangle::square(20)); 
-}
-// return the index of the first word ending
+    
 
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-
-//houses methods for Rectangle
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
-    }
-}
-// contains associated functions as they do not have the first param as &self
-impl Rectangle {
-    fn square(size: u32) -> Self {
-        Self {
-            width: size,
-            height: size,
-        }
-    }
 }
 
