@@ -1,20 +1,11 @@
-struct CustomSmartPointer {
-    data: String,
-}
-
-impl Drop for CustomSmartPointer {
-    fn drop(&mut self) {
-        println!("Dropping CustomSmartPointer with data `{}`!", self.data);
-    }
-}
+use std::thread;
 
 fn main() {
-    let c = CustomSmartPointer {
-        data: String::from("my stuff"),
-    };
-    drop(c);
-    let d = CustomSmartPointer {
-        data: String::from("other stuff"),
-    };
-    println!("CustomSmartPointers created.");
+    let v = vec![1, 2, 3];
+
+    let handle = thread::spawn(move || {
+        println!("Here's a vector: {:?}", v);
+    });
+
+    handle.join().unwrap();
 }
