@@ -1,23 +1,15 @@
-use std::sync::{Arc, Mutex};
-use std::thread;
+
+use rust_back_end::Post;
 
 fn main() {
-    let counter = Arc::new(Mutex::new(0));
-    let mut handles = vec![];
+    let mut post = Post::new();
 
-    for _ in 0..10 {
-        let counter = Arc::clone(&counter);
-        let handle = thread::spawn(move || {
-            let mut num = counter.lock().unwrap();
+    post.add_text("I ate a salad for lunch today");
+    assert_eq!("", post.content());
 
-            *num += 1;
-        });
-        handles.push(handle);
-    }
+    post.request_review();
+    assert_eq!("", post.content());
 
-    for handle in handles {
-        handle.join().unwrap();
-    }
-
-    println!("Result: {}", *counter.lock().unwrap());
+    post.approve();
+    assert_eq!("I ate a salad for lunch today", post.content());
 }
